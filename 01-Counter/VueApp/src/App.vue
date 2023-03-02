@@ -1,3 +1,4 @@
+<!-- 
 // https://cn.vuejs.org/api/sfc-script-setup.html#script-setup
 <script setup>
 import { ref } from "vue";
@@ -13,6 +14,25 @@ const addCount = () => {
 const subtractCount = () => {
   console.log("on subtract");
   count.value--;
+};
+</script>
+ -->
+
+<script>
+export default {
+  data() {
+    return { count: 0 };
+  },
+  methods: {
+    addCount() {
+      console.log("on add");
+      this.count++;
+    },
+    subtractCount() {
+      console.log("on subtract");
+      this.count--;
+    },
+  },
 };
 </script>
 
