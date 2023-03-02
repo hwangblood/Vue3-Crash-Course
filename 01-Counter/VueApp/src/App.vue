@@ -1,23 +1,13 @@
-<!-- 
 // https://cn.vuejs.org/api/sfc-script-setup.html#script-setup
 <script setup>
 import { ref } from "vue";
 
 let count = ref(0);
 console.log(count);
-
-const addCount = () => {
-  console.log("on add");
-  count.value++;
-};
-
-const subtractCount = () => {
-  console.log("on subtract");
-  count.value--;
-};
 </script>
- -->
 
+<!-- 
+// Options API
 <script>
 export default {
   data() {
@@ -35,14 +25,14 @@ export default {
   },
 };
 </script>
-
+ -->
 <template>
   <main>
     <container class="container">
       <h4>The current count is...</h4>
       <h1>{{ count }}</h1>
-      <button @click="addCount()">+</button>
-      <button @click="subtractCount()">-</button>
+      <button @click="count++">+</button>
+      <button @click="count--">-</button>
     </container>
   </main>
 </template>
