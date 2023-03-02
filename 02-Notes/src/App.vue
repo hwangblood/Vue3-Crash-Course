@@ -1,16 +1,46 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const showModal = ref(false);
+const newNote = ref("");
+const notes = ref([]);
+const errorMessage = ref("");
+
+function getRandomColor() {
+  return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+}
+
+const addNote = () => {
+  if (newNote.value.length < 10) {
+    errorMessage.value = "Note needs to be 10 characters or more";
+    return;
+  }
+  notes.value.push({
+    id: Math.floor(Math.random() * 1000000),
+    text: newNote.value,
+    date: new Date(),
+    backgroundColor: getRandomColor(),
+  });
+  showModal.value = false;
+  newNote.value = "";
+  errorMessage.value = "";
+};
 </script>
 
 <template>
   <main>
-    // https://learnvue.co/articles/v-if-vs-v-show
+    <!-- https://learnvue.co/articles/v-if-vs-v-show -->
     <div v-if="showModal" class="overlay">
       <div class="modal">
-        <textarea name="note" id="note" cols="30" rows="10"></textarea>
-        <button>Add Note</button>
+        <textarea
+          v-model.trim="newNote"
+          name="note"
+          id="note"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <p v-if="errorMessage">{{ errorMessage }}</p>
+        <button @click="addNote">Add Note</button>
         <button @click="showModal = false" class="close">Close</button>
       </div>
     </div>
@@ -20,12 +50,15 @@ const showModal = ref(false);
         <button @click="showModal = true">+</button>
       </header>
       <div class="cards-container">
-        <div class="card">
-          <p class="main-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat,
-            totam corrupti! Deleniti eius aut quod!
-          </p>
-          <p class="date">02/03/2023 15:55</p>
+        {{ name }}
+        <div
+          v-for="note in notes"
+          :key="note.id"
+          class="card"
+          :style="{ backgroundColor: note.backgroundColor }"
+        >
+          <p class="main-text">{{ note.text }}</p>
+          <p class="date">{{ note.date.toLocaleDateString("en-US") }}</p>
         </div>
       </div>
     </div>
@@ -127,6 +160,10 @@ header button {
 .modal .close {
   background-color: rgb(193, 48, 48);
   margin-top: 8px;
+}
+
+.modal p {
+  color: rgb(193, 15, 15);
 }
 
 textarea {
