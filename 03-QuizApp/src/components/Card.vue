@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
-
 // you can define all props that passed to component in this way
 const props = defineProps(["quiz"]);
 
