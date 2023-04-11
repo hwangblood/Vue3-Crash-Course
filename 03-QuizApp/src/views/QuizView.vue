@@ -14,14 +14,9 @@ const quiz = quizes.find((q) => q.id === quizId);
 
 const currentQuestionIndex = ref(0);
 
-const questionStatus = ref(
-  `${currentQuestionIndex.value}/${quiz.questions.length}`
-);
-watch(
-  () => currentQuestionIndex.value,
-  () => {
-    questionStatus.value = `${currentQuestionIndex.value}/${quiz.questions.length}`;
-  }
+// when a Ref is based on another Ref, computed is recommended, but not
+const questionStatus = computed(
+  () => `${currentQuestionIndex.value}/${quiz.questions.length}`
 );
 </script>
 
