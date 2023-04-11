@@ -1,14 +1,20 @@
+<script setup>
+import { defineProps } from "vue";
+
+// you can define all props that passed to component in this way
+const props = defineProps(["quiz"]);
+
+const { quiz } = props;
+console.log(quiz);
+</script>
+
 <template>
   <div class="card">
-    <img
-      src="https://marvel-b1-cdn.bc0a.com/f00000000026007/resilienteducator.com/wp-content/uploads/2012/11/AdobeStock_60467600_cup.jpg"
-      alt=""
-      srcset=""
-    />
+    <img :src="quiz.img" alt="" srcset="" />
 
     <div class="card-text">
-      <h2>Math</h2>
-      <p>3 questions</p>
+      <h2>{{ quiz.name }}</h2>
+      <p>{{ quiz.questions.length }} questions</p>
     </div>
   </div>
 </template>
