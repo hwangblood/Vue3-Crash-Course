@@ -1,6 +1,5 @@
 <script setup>
 const { question } = defineProps(["question"]);
-console.log(question);
 </script>
 
 <template>
