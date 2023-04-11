@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import QuizesView from "../views/QuizesView.vue";
+import QuizView from "../views/QuizView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,11 @@ const router = createRouter({
     {
       path: "/quizes",
       redirect: "/",
+    },
+    {
+      path: "/quiz/:id",
+      name: "quiz",
+      component: QuizView,
     },
   ],
 });

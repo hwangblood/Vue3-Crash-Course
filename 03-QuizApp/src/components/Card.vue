@@ -1,13 +1,19 @@
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 // you can define all props that passed to component in this way
 const props = defineProps(["quiz"]);
-
 const { quiz } = props;
-console.log(quiz);
+
+const navigateToQuiz = () => {
+  router.push(`/quiz/${quiz.id}`);
+};
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="navigateToQuiz">
     <img :src="quiz.img" alt="" srcset="" />
 
     <div class="card-text">
