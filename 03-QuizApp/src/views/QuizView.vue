@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 
 import Question from "../components/Question.vue";
 import QuizHeader from "../components/QuizHeader.vue";
+import Result from "../components/Result.vue";
 
 import quizes from "../data/quizes.json";
 
@@ -28,8 +29,14 @@ const onOptionSlected = (isCorrect) => {
   if (isCorrect) {
     numberOfCorrectAnswers.value++;
   }
+  if (quiz.questions.length - 1 === currentQuestionIndex.value) {
+    isQuizCompleted.value = true;
+  }
   currentQuestionIndex.value++;
 };
+
+// once quiz is completed, show the result of questions
+const isQuizCompleted = ref(false);
 </script>
 
 <template>
@@ -40,10 +47,15 @@ const onOptionSlected = (isCorrect) => {
     />
     <div>
       <Question
+        v-if="!isQuizCompleted"
         :question="quiz.questions[currentQuestionIndex]"
         @selectOption="onOptionSlected"
       />
+      <Result
+        v-else
+        :quizQuestionLength="quiz.questions.length"
+        :numberOfCorrectAnswers="numberOfCorrectAnswers"
+      />
     </div>
-    <p>numberOfCorrectAnswers: {{ numberOfCorrectAnswers }}</p>
   </div>
 </template>
