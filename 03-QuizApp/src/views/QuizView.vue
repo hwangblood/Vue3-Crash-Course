@@ -13,6 +13,7 @@ const quizId = parseInt(route.params.id);
 const quiz = quizes.find((q) => q.id === quizId);
 
 const currentQuestionIndex = ref(0);
+const numberOfCorrectAnswers = ref(0);
 
 // when a Ref is based on another Ref, computed is recommended, but not
 const questionStatus = computed(
@@ -22,6 +23,13 @@ const questionStatus = computed(
 const barPercentage = computed(
   () => `${(currentQuestionIndex.value / quiz.questions.length) * 100}%`
 );
+
+const onOptionSlected = (isCorrect) => {
+  if (isCorrect) {
+    numberOfCorrectAnswers.value++;
+  }
+  currentQuestionIndex.value++;
+};
 </script>
 
 <template>
@@ -31,8 +39,11 @@ const barPercentage = computed(
       :barPercentage="barPercentage"
     />
     <div>
-      <Question :question="quiz.questions[currentQuestionIndex]" />
+      <Question
+        :question="quiz.questions[currentQuestionIndex]"
+        @selectOption="onOptionSlected"
+      />
     </div>
-    <button @click="currentQuestionIndex++">Next Question</button>
+    <p>numberOfCorrectAnswers: {{ numberOfCorrectAnswers }}</p>
   </div>
 </template>
